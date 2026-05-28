@@ -2,6 +2,7 @@
 import base64
 import concurrent.futures
 import datetime
+import os
 import hashlib
 import hmac
 import json
@@ -255,8 +256,8 @@ class PromptRewriter:
                 ApiConfig(
                     host=host,
                     user="",
-                    apikey="EMPTY",
-                    model="Qwen3-30B-A3B-SFT",
+                    apikey=os.environ.get("PROMPT_API_KEY", "EMPTY"),
+                    model=os.environ.get("PROMPT_MODEL_NAME", "Qwen3-30B-A3B-SFT"),
                     api_version="",
                 )
             )

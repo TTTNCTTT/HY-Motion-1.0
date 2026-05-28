@@ -908,6 +908,11 @@ def create_demo(final_model_path):
 
 if __name__ == "__main__":
     # Create demo at module level for Hugging Face Spaces
-    final_model_path = try_to_download_model()
+    local_standard = os.path.join("ckpts", "tencent", "HY-Motion-1.0")
+    if os.path.exists(os.path.join(local_standard, "config.yml")):
+        final_model_path = local_standard
+        print(f">>> Using local model: {final_model_path}")
+    else:
+        final_model_path = try_to_download_model()
     demo = create_demo(final_model_path)
-    demo.launch()
+    demo.launch(server_name="0.0.0.0")

@@ -384,12 +384,12 @@ def main():
     save_batch_results(results_list, args.output_dir)
 
     print(">>> Batch processing completed!")
+    if runtime.prompt_rewriter and hasattr(runtime.prompt_rewriter, 'api'):
+        runtime.prompt_rewriter.api.client.close()
+    runtime.prompt_rewriter = None
+    import torch.cuda
+    torch.cuda.empty_cache()
 
 
 if __name__ == "__main__":
-    """
-    python local_infer.py --model_path ckpts/tencent/HY-Motion-1.0 \
-        --device_ids 0,1 \
-        --input_text_dir examples/example_prompts/ \
-    """
     main()
